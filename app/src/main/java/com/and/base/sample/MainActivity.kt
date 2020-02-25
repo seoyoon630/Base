@@ -1,9 +1,11 @@
 package com.and.base.sample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.and.base.ui.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
+    override val vm by lazy { VMTestViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
