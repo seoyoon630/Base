@@ -4,6 +4,7 @@ package com.and.base.ui
 
 import android.app.Application
 import android.webkit.WebView
+import com.and.base.component.PP
 import com.and.base.component.isDebug
 import com.facebook.stetho.Stetho
 
@@ -15,5 +16,7 @@ abstract class BaseApplication : Application() {
             Stetho.initializeWithDefaults(this)
             WebView.setWebContentsDebuggingEnabled(true)
         }
+
+        PP.getInstance(null).CREATE(this@BaseApplication)
     }
 }
