@@ -15,7 +15,7 @@ abstract class BaseFragment : Fragment() {
 
         // Fragment Progress 정의
         vm.isProgress.observe(this, Observer { it?.let { isProgress -> if (isProgress) showProgress(); else dismissProgress() } })
-        vm.alertMessage.observe(this, Observer { it?.let { message -> showDialog(message = message) } })
+        vm.alertMessage.observe(this, Observer { it?.let { message -> showDialog(message = message, positiveButtonText = "확인") } })
     }
 
     fun showProgress() = (requireActivity() as BaseActivity).showProgress()
