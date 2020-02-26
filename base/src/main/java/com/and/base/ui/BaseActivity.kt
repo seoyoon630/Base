@@ -10,7 +10,6 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.method.TextKeyListener.clear
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -79,14 +78,25 @@ abstract class BaseActivity : AppCompatActivity(), java.util.Observer {
         onLoadOnce()
     }
 
-    private fun reload() {
-        onClear()
+    private fun load() {
         onLoad()
+    }
+
+    private fun clear() {
+        onClear()
+    }
+
+    private fun reload() {
+        onReload()
     }
 
     protected fun onParseExtra() {}
     protected fun onLoadOnce() {}
-    protected fun onReload() {}
+    protected fun onReload() {
+        clear()
+        load()
+    }
+
     protected fun onClear() {}
     protected fun onLoad() {}
 

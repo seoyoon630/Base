@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import java.lang.Exception
 
 abstract class BaseFragment : Fragment() {
 
@@ -16,7 +17,44 @@ abstract class BaseFragment : Fragment() {
         // Fragment Progress 정의
         vm.isProgress.observe(this, Observer { it?.let { isProgress -> if (isProgress) showProgress(); else dismissProgress() } })
         vm.alertMessage.observe(this, Observer { it?.let { message -> showDialog(message = message, positiveButtonText = "확인") } })
+
+        parseExtra()
+        loadOnce()
+        reload()
     }
+
+    private fun parseExtra() {
+        try {
+            onParseExtra()
+        } catch (ignore: Exception) {
+        }
+    }
+
+    private fun loadOnce() {
+        onLoadOnce()
+    }
+
+    private fun load() {
+        onLoad()
+    }
+
+    private fun clear() {
+        onClear()
+    }
+
+    private fun reload() {
+        onReload()
+    }
+
+    protected fun onParseExtra() {}
+    protected fun onLoadOnce() {}
+    protected fun onReload() {
+        clear()
+        load()
+    }
+
+    protected fun onClear() {}
+    protected fun onLoad() {}
 
     fun showProgress() = (requireActivity() as BaseActivity).showProgress()
     fun dismissProgress() = (requireActivity() as BaseActivity).dismissProgress()
