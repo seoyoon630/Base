@@ -19,9 +19,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
+import com.and.base.component.EventObserver
 import java.lang.Exception
+import java.util.*
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), java.util.Observer {
 
     abstract val vm: BaseViewModel
 
@@ -57,6 +59,13 @@ abstract class BaseActivity : AppCompatActivity() {
         parseExtra()
         loadOnce()
         reload()
+
+        EventObserver.getInstance().addObserver(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventObserver.getInstance().deleteObserver(this)
     }
 
     private fun parseExtra() {
@@ -84,14 +93,14 @@ abstract class BaseActivity : AppCompatActivity() {
 
     // Dialog
     protected fun getDialog(title: Any? = null,
-                  message: Any? = null,
-                  view: View? = null,
-                  positiveButtonText: Any? = null,
-                  positiveListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
-                  negativeButtonText: Any? = null,
-                  negativeListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
-                  neutralButtonText: Any? = null,
-                  neutralListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null): AlertDialog? {
+                            message: Any? = null,
+                            view: View? = null,
+                            positiveButtonText: Any? = null,
+                            positiveListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
+                            negativeButtonText: Any? = null,
+                            negativeListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
+                            neutralButtonText: Any? = null,
+                            neutralListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null): AlertDialog? {
         return AlertDialog.Builder(this).apply {
             if (title != null) setTitle(getText(title))
             if (message != null) setMessage(getText(message))
@@ -160,5 +169,6 @@ abstract class BaseActivity : AppCompatActivity() {
         return if (text is Int) this.getString(text) else text.toString()
     }
 
-
+    override fun update(o: Observable?, arg: Any?) {
+    }
 }
