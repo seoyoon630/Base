@@ -8,6 +8,7 @@ import com.and.base.component.isDebug
 import com.facebook.stetho.Stetho
 
 abstract class BaseApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
         if (isDebug()) {

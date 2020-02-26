@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.method.TextKeyListener.clear
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
+import java.lang.Exception
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -51,10 +53,37 @@ abstract class BaseActivity : AppCompatActivity() {
         // Progress 정의
         vm.isProgress.observe(mActivity, Observer { it?.let { isProgress -> if (isProgress) showProgress(); else dismissProgress() } })
         vm.alertMessage.observe(mActivity, Observer { it?.let { message -> showDialog(message = message, positiveButtonText = "확인") } })
+
+        parseExtra()
+        loadOnce()
+        reload()
     }
 
+    private fun parseExtra() {
+        try {
+            onParseExtra()
+        } catch (ignore: Exception) {
+        }
+    }
+
+    private fun loadOnce() {
+        onLoadOnce()
+    }
+
+    private fun reload() {
+        onClear()
+        onLoad()
+    }
+
+    protected fun onParseExtra() {}
+    protected fun onLoadOnce() {}
+    protected fun onReload() {}
+    protected fun onClear() {}
+    protected fun onLoad() {}
+
+
     // Dialog
-    fun getDialog(title: Any? = null,
+    protected fun getDialog(title: Any? = null,
                   message: Any? = null,
                   view: View? = null,
                   positiveButtonText: Any? = null,

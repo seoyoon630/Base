@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.content.pm.ApplicationInfo
 
 
-
 fun Context.isDebug(): Boolean {
     val isDebug: Boolean
     try {
