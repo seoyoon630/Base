@@ -4,6 +4,7 @@ import android.os.Looper
 import java.util.Observable
 
 class EventObserver private constructor() : Observable() {
+
     companion object {
         private val instance = EventObserver()
         fun getInstance() = instance
@@ -14,8 +15,8 @@ class EventObserver private constructor() : Observable() {
         if (arg == null)
             throw NullPointerException("!event obj must not null")
 
-        if (arg !is Enum<*>)
-            throw NullPointerException("!event obj must Enum")
+        if (arg !is EE)
+            throw NullPointerException("!event obj must child of EE")
 
         if (Looper.myLooper() != Looper.getMainLooper())
             throw NullPointerException("!event obj must be in MainThread")
