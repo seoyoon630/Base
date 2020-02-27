@@ -10,13 +10,19 @@ import com.facebook.stetho.Stetho
 
 abstract class BaseApplication : Application() {
 
+
     override fun onCreate() {
         super.onCreate()
-        if (isDebug()) {
+        IS_DEBUG = isDebug()
+
+        if (IS_DEBUG) {
             Stetho.initializeWithDefaults(this)
             WebView.setWebContentsDebuggingEnabled(true)
         }
-
         PP.getInstance(null).CREATE(this@BaseApplication)
+    }
+
+    companion object {
+        var IS_DEBUG = false
     }
 }
