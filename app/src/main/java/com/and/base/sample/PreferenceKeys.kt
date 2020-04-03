@@ -1,5 +1,5 @@
 package com.and.base.sample
 
+/** PP Key 목록*/
 enum class PreferenceKeys {
-    Boolean, Int, Long, Float, String;
 }
