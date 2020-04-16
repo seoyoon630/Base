@@ -5,6 +5,7 @@ package com.and.base.ui
 import android.app.Application
 import android.webkit.WebView
 import com.and.base.component.PP
+import com.and.base.component.getLabel
 import com.and.base.component.isDebug
 import com.facebook.stetho.Stetho
 import com.orhanobut.logger.AndroidLogAdapter
@@ -36,7 +37,7 @@ abstract class BaseApplication : Application() {
         return PrettyFormatStrategy.newBuilder().apply {
             showThreadInfo(false)
             methodCount(2)
-            tag(applicationInfo.loadLabel(packageManager).toString())
+            tag(getLabel())
         }.build()
     }
 }

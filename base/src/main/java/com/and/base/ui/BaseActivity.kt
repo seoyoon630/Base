@@ -1,8 +1,7 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
+@file:Suppress("MemberVisibilityCanBePrivate","SourceLockedOrientationActivity")
 
 package com.and.base.ui
 
-import android.R
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -32,11 +31,11 @@ abstract class BaseActivity : AppCompatActivity(), java.util.Observer {
 
     lateinit var mProgress: Dialog
 
-    protected fun setRequestedOrientation() {
+    protected open fun setRequestedOrientation() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
     }
 
-    protected fun setSoftInputMode() {
+    protected open fun setSoftInputMode() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
@@ -90,19 +89,19 @@ abstract class BaseActivity : AppCompatActivity(), java.util.Observer {
         onReload()
     }
 
-    protected fun onParseExtra() {}
-    protected fun onLoadOnce() {}
-    protected fun onReload() {
+    protected open fun onParseExtra() {}
+    protected open fun onLoadOnce() {}
+    protected open fun onReload() {
         clear()
         load()
     }
 
-    protected fun onClear() {}
-    protected fun onLoad() {}
+    protected open fun onClear() {}
+    protected open fun onLoad() {}
 
 
     // Dialog
-    protected fun getDialog(title: Any? = null,
+    protected open fun getDialog(title: Any? = null,
                             message: Any? = null,
                             view: View? = null,
                             positiveButtonText: Any? = null,
@@ -141,12 +140,12 @@ abstract class BaseActivity : AppCompatActivity(), java.util.Observer {
         dialog?.show()
     }
 
-    protected fun createProgress(): Dialog {
+    protected open fun createProgress(): Dialog {
         val dialog = Dialog(mContext)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.window?.apply {
-            setContentView(ProgressBar(mContext, null, R.attr.progressBarStyleLarge))
+            setContentView(ProgressBar(mContext, null, android.R.attr.progressBarStyleLarge))
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
         return dialog

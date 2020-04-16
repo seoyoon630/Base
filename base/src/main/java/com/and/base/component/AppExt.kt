@@ -1,5 +1,6 @@
 package com.and.base.component
 
+import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.pm.ApplicationInfo
@@ -14,6 +15,10 @@ fun Context.isDebug(): Boolean {
         return false
     }
     return isDebug
+}
+
+fun Application.getLabel(): String {
+    return applicationInfo.loadLabel(packageManager).toString()
 }
 
 
