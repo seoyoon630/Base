@@ -24,7 +24,7 @@ abstract class BaseApplication : Application() {
             Stetho.initializeWithDefaults(this)
             WebView.setWebContentsDebuggingEnabled(true)
         }
-        PP.getInstance(null).CREATE(this@BaseApplication)
+        PP.CREATE(this@BaseApplication)
 
         Logger.addLogAdapter(AndroidLogAdapter(initLogOption()))
     }

@@ -8,10 +8,6 @@ class PP private constructor() {
     lateinit var PREFERENCES: SharedPreferences
     var name: String? = null
 
-    fun CREATE(context: Context) {
-        PREFERENCES = PreferenceManager.getDefaultSharedPreferences(context)
-    }
-
     // default values
     private val DEFVALUE_STRING = ""
     private val DEFVALUE_FLOAT = -1f
@@ -47,9 +43,12 @@ class PP private constructor() {
     companion object {
         private val instance: PP = PP()
 
-        fun getInstance(param: Enum<*>? = null): PP =
-                param?.let { instance.changeName(it.name) } ?: instance
+        fun getInstance(param: Enum<*>): PP = instance.changeName(param.name)
 
         fun getInstance(name: String): PP = instance.changeName(name)
+
+        fun CREATE(context: Context) {
+            instance.PREFERENCES = PreferenceManager.getDefaultSharedPreferences(context)
+        }
     }
 }
