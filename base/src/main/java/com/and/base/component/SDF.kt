@@ -9,10 +9,10 @@ fun Date.format(sdf : SDF) : String = SimpleDateFormat(sdf.pattern, sdf.locale).
 fun Long.format(sdf : SDF) : String = SimpleDateFormat(sdf.pattern, sdf.locale).format(this)
 
 @Throws(ParseException::class)
-fun String.parseDate(sdf : SDF) : Date = SimpleDateFormat(sdf.pattern, sdf.locale).parse(this)
+fun String.parseDate(sdf : SDF) : Date? = SimpleDateFormat(sdf.pattern, sdf.locale).parse(this)
 
 @Throws(ParseException::class)
-fun String.parseLong(sdf : SDF) : Long = SimpleDateFormat(sdf.pattern, sdf.locale).parse(this).time
+fun String.parseLong(sdf : SDF) : Long? = SimpleDateFormat(sdf.pattern, sdf.locale).parse(this)?.time
 
 enum class SDF(val pattern: String, val locale: Locale = Locale.getDefault()) {
     yyyymmdd("yyyyMMdd"),
