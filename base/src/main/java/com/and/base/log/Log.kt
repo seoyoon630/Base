@@ -11,19 +11,19 @@ object Log {
             Logger.d(message)
     }
 
-    fun i(message: String) {
+    fun i(message: Any) {
         if (BaseApplication.IS_DEBUG)
-            Logger.i(message)
+            Logger.i(message.toString())
     }
 
-    fun w(message: String) {
+    fun w(message: Any) {
         if (BaseApplication.IS_DEBUG)
-            Logger.w(message)
+            Logger.w(message.toString())
     }
 
-    fun e(message: String) {
+    fun e(message: Any) {
         if (BaseApplication.IS_DEBUG)
-            Logger.e(message)
+            Logger.e(message.toString())
     }
 
     fun json(json: String) {
