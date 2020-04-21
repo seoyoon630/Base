@@ -69,26 +69,26 @@ abstract class BaseActivity : AppCompatActivity(), java.util.Observer {
         EventObserver.getInstance().deleteObserver(this)
     }
 
-    private fun parseExtra() {
+    protected fun parseExtra() {
         try {
             onParseExtra()
         } catch (ignore: Exception) {
         }
     }
 
-    private fun loadOnce() {
+    protected fun loadOnce() {
         onLoadOnce()
     }
 
-    private fun load() {
+    protected fun load() {
         onLoad()
     }
 
-    private fun clear() {
+    protected fun clear() {
         onClear()
     }
 
-    private fun reload() {
+    public fun reload() {
         onReload()
     }
 
