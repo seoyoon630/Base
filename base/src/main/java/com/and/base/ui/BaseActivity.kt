@@ -1,4 +1,4 @@
-@file:Suppress("MemberVisibilityCanBePrivate","SourceLockedOrientationActivity")
+@file:Suppress("MemberVisibilityCanBePrivate", "SourceLockedOrientationActivity")
 
 package com.and.base.ui
 
@@ -55,10 +55,13 @@ abstract class BaseActivity : AppCompatActivity(), java.util.Observer {
         vm.alertMessage.observe(mActivity, Observer { it?.let { message -> showDialog(message = message, positiveButtonText = "확인") } })
 
         parseExtra()
+        EventObserver.getInstance().addObserver(this)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
         loadOnce()
         reload()
-
-        EventObserver.getInstance().addObserver(this)
     }
 
     override fun onDestroy() {
@@ -102,14 +105,14 @@ abstract class BaseActivity : AppCompatActivity(), java.util.Observer {
 
     // Dialog
     protected open fun getDialog(title: Any? = null,
-                            message: Any? = null,
-                            view: View? = null,
-                            positiveButtonText: Any? = null,
-                            positiveListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
-                            negativeButtonText: Any? = null,
-                            negativeListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
-                            neutralButtonText: Any? = null,
-                            neutralListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null): AlertDialog? {
+                                 message: Any? = null,
+                                 view: View? = null,
+                                 positiveButtonText: Any? = null,
+                                 positiveListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
+                                 negativeButtonText: Any? = null,
+                                 negativeListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
+                                 neutralButtonText: Any? = null,
+                                 neutralListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null): AlertDialog? {
         return AlertDialog.Builder(this).apply {
             if (title != null) setTitle(getText(title))
             if (message != null) setMessage(getText(message))

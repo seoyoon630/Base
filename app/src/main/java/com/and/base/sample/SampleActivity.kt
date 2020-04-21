@@ -1,6 +1,7 @@
 package com.and.base.sample
 
 import android.os.Bundle
+import com.and.base.component.PP
 import com.and.base.log.Log
 import com.and.base.ui.BaseActivity
 
