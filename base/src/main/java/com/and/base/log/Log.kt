@@ -3,7 +3,6 @@ package com.and.base.log
 import com.and.base.ui.BaseApplication
 import com.orhanobut.logger.Logger
 
-
 object Log {
 
     fun d(message: Any) {
@@ -24,6 +23,11 @@ object Log {
     fun e(message: Any) {
         if (BaseApplication.IS_DEBUG)
             Logger.e(message.toString())
+    }
+
+    fun e(throwable: Throwable, message: Any) {
+        if (BaseApplication.IS_DEBUG)
+            Logger.e(throwable, message.toString())
     }
 
     fun json(json: String) {
