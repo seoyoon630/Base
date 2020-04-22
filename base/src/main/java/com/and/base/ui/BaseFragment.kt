@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package com.and.base.ui
 
 import android.content.DialogInterface
@@ -15,46 +17,46 @@ abstract class BaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Fragment Progress 정의
-        vm.isProgress.observe(this, Observer { it?.let { isProgress -> if (isProgress) showProgress(); else dismissProgress() } })
-        vm.alertMessage.observe(this, Observer { it?.let { message -> showDialog(message = message, positiveButtonText = "확인") } })
+        vm.isProgress.observe(viewLifecycleOwner, Observer { it?.let { isProgress -> if (isProgress) showProgress(); else dismissProgress() } })
+        vm.alertMessage.observe(viewLifecycleOwner, Observer { it?.let { message -> showDialog(message = message, positiveButtonText = "확인") } })
 
         parseExtra()
         loadOnce()
         reload()
     }
 
-    private fun parseExtra() {
+    protected fun parseExtra() {
         try {
             onParseExtra()
         } catch (ignore: Exception) {
         }
     }
 
-    private fun loadOnce() {
+    protected fun loadOnce() {
         onLoadOnce()
     }
 
-    private fun load() {
+    protected fun load() {
         onLoad()
     }
 
-    private fun clear() {
+    protected fun clear() {
         onClear()
     }
 
-    private fun reload() {
+    protected fun reload() {
         onReload()
     }
 
-    protected fun onParseExtra() {}
-    protected fun onLoadOnce() {}
-    protected fun onReload() {
+    protected open fun onParseExtra() {}
+    protected open fun onLoadOnce() {}
+    protected open fun onReload() {
         clear()
         load()
     }
 
-    protected fun onClear() {}
-    protected fun onLoad() {}
+    protected open fun onClear() {}
+    protected open fun onLoad() {}
 
     fun showProgress() = (requireActivity() as BaseActivity).showProgress()
     fun dismissProgress() = (requireActivity() as BaseActivity).dismissProgress()
