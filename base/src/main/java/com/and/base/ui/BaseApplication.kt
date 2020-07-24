@@ -2,7 +2,6 @@
 
 package com.and.base.ui
 
-import android.app.Application
 import android.webkit.WebView
 import com.and.base.component.PP
 import com.and.base.component.getLabel
@@ -12,8 +11,9 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
+import dagger.android.DaggerApplication
 
-abstract class BaseApplication : Application() {
+abstract class BaseApplication : DaggerApplication() {
 
 
     override fun onCreate() {
