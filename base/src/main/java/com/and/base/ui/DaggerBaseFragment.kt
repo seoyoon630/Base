@@ -1,17 +1,13 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
-
 package com.and.base.ui
 
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import dagger.android.support.DaggerFragment
 import java.lang.Exception
 
-abstract class BaseFragment : Fragment() {
-
+abstract class DaggerBaseFragment : DaggerFragment() {
     abstract val vm: BaseViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,6 +66,6 @@ abstract class BaseFragment : Fragment() {
                    negativeListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
                    neutralButtonText: Any? = null,
                    neutralListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null) =
-            (requireActivity() as BaseActivity).showDialog(title, message, view, positiveButtonText, positiveListener, negativeButtonText, negativeListener, neutralButtonText, neutralListener)
+        (requireActivity() as BaseActivity).showDialog(title, message, view, positiveButtonText, positiveListener, negativeButtonText, negativeListener, neutralButtonText, neutralListener)
 
 }
