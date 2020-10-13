@@ -6,19 +6,21 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 class Net(
-        val BASE_URL: String,
-        private val interceptors: Array<Interceptor>? = null,        // 추가 interceptor
-        private val networkInterceptors: Array<Interceptor>? = null, // 추가 network interceptor
-        private val isGsonConverter: Boolean = true,                 // Gson Converter 사용여부
-        private val isScalarsConverter: Boolean = true,              // Scalars Converter 사용여부 ( Respone String으로 받을 경우 )
-        private val connectTimeout: Long = 180,                      // ConnectTimeout Default 180
-        private val writeTimeout: Long = 180,                        // WriteTimeout Default 180
-        private val readTimeout: Long = 180                          // ReadTimeout Default 180
+    val BASE_URL: String,
+    private val interceptors: Array<Interceptor>? = null,        // 추가 interceptor
+    private val networkInterceptors: Array<Interceptor>? = null, // 추가 network interceptor
+    private val isGsonConverter: Boolean = true,                 // Gson Converter 사용여부
+    private val isRxJavaAdapter: Boolean = false,                // RxJavaAdapter 사용 여부
+    private val isScalarsConverter: Boolean = true,              // Scalars Converter 사용여부 ( Respone String으로 받을 경우 )
+    private val connectTimeout: Long = 180,                      // ConnectTimeout Default 180
+    private val writeTimeout: Long = 180,                        // WriteTimeout Default 180
+    private val readTimeout: Long = 180                          // ReadTimeout Default 180
 ) {
     val retrofit: Retrofit
 
@@ -48,6 +50,7 @@ class Net(
             baseUrl(BASE_URL) // BaseUrl 설정
             if (isGsonConverter) addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             if (isScalarsConverter) addConverterFactory(ScalarsConverterFactory.create())
+            if (isRxJavaAdapter) addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             client(httpClient)
         }.build()
     }
