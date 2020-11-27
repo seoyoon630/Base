@@ -132,15 +132,16 @@ abstract class BaseActivity : AppCompatActivity(), java.util.Observer {
                    negativeButtonText: Any? = null,
                    negativeListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null,
                    neutralButtonText: Any? = null,
-                   neutralListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null) {
+                   neutralListener: ((dialogInterface: DialogInterface, position: Int) -> Unit)? = null): AlertDialog? {
         val dialog = getDialog(title, message, view, positiveButtonText, positiveListener, negativeButtonText, negativeListener, neutralButtonText, neutralListener)
         if (lifecycle.currentState == Lifecycle.State.DESTROYED) {
-            return
+            return null
         }
         if (isFinishing) {
-            return
+            return null
         }
         dialog?.show()
+        return dialog
     }
 
     protected open fun createProgress(): Dialog {
